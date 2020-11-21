@@ -23,7 +23,7 @@ if __name__ == '__main__':
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0)
 
     if args.restore:
-        model_path = 'saved_model/best_model'
+        model_path = 'saved_model/test_model'
         print("Loading trained model from %s" % model_path)
         model.load_state_dict(torch.load(model_path))
 
@@ -52,5 +52,5 @@ if __name__ == '__main__':
         if dev_acc[1] > best_lf:
             best_lf = dev_acc[1]
             best_lf_idx = i + 1
-            torch.save(model.state_dict(), 'saved_model/best_model')
+            torch.save(model.state_dict(), 'saved_model/test_model')
         print('Train loss = %.3f' % train_loss)
