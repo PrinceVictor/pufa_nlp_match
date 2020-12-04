@@ -1,0 +1,160 @@
+[
+  {
+    "question_id": "SPDB-6fad8187ada821dd4834a1be977d3c03",
+    "db_name": "私募基金_私募股权",
+    "question": "私募股权基金投资退出事件中，投资时间早于2013年7月8日的基金和账面回报最大的2个基金，其对应的基金公司ID有哪些？",
+    "sql_query": "(SELECT \"基金公司ID\" FROM \"私募股权基金投资退出事件\" WHERE \"投资时间\" < '2013-07-08') UNION (SELECT \"基金公司ID\" FROM \"私募股权基金投资退出事件\" ORDER BY \"账面回报\" DESC LIMIT 2)",
+    "sql": {
+      "select": [
+        [
+          12,
+          0,
+          0,
+          0
+        ]
+      ],
+      "from": {
+        "conds": [],
+        "table_ids": [
+          [
+            "table_id",
+            "私募基金_私募股权_2"
+          ]
+        ]
+      },
+      "where": [
+        [
+          14,
+          0,
+          4,
+          "2013-07-08",
+          0,
+          0,
+          {}
+        ]
+      ],
+      "groupBy": [],
+      "orderBy": [],
+      "having": [],
+      "limit": null,
+      "except": {},
+      "union": {
+        "select": [
+          [
+            12,
+            0,
+            0,
+            0
+          ]
+        ],
+        "from": {
+          "conds": [],
+          "table_ids": [
+            [
+              "table_id",
+              "私募基金_私募股权_2"
+            ]
+          ]
+        },
+        "where": [],
+        "groupBy": [],
+        "orderBy": [
+          "DESC",
+          [
+            [
+              15,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "having": [],
+        "limit": 2,
+        "except": {},
+        "union": {},
+        "intersect": {}
+      },
+      "intersect": {}
+    }
+  },
+  {
+    "question_id": "SPDB-ed563494a4f0c71c74fb612102585712",
+    "db_name": "纪念馆",
+    "question": "纪念馆别名表中，广场面积不大于100的纪念馆和总投资最少的2个纪念馆，对应的地点有哪些？",
+    "sql_query": "(SELECT \"地点\" FROM \"纪念馆别名\" WHERE \"广场面积\" <= 100.0) UNION (SELECT \"地点\" FROM \"纪念馆别名\" ORDER BY \"总投资\" ASC LIMIT 2)",
+    "sql": {
+      "select": [
+        [
+          4,
+          0,
+          0,
+          0
+        ]
+      ],
+      "from": {
+        "conds": [],
+        "table_ids": [
+          [
+            "table_id",
+            "纪念馆_0"
+          ]
+        ]
+      },
+      "where": [
+        [
+          2,
+          0,
+          6,
+          100.0,
+          0,
+          0,
+          {}
+        ]
+      ],
+      "groupBy": [],
+      "orderBy": [],
+      "having": [],
+      "limit": null,
+      "except": {},
+      "union": {
+        "select": [
+          [
+            4,
+            0,
+            0,
+            0
+          ]
+        ],
+        "from": {
+          "conds": [],
+          "table_ids": [
+            [
+              "table_id",
+              "纪念馆_0"
+            ]
+          ]
+        },
+        "where": [],
+        "groupBy": [],
+        "orderBy": [
+          "ASC",
+          [
+            [
+              6,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "having": [],
+        "limit": 2,
+        "except": {},
+        "union": {},
+        "intersect": {}
+      },
+      "intersect": {}
+    }
+  }
+]

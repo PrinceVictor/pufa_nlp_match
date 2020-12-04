@@ -18,14 +18,14 @@ if __name__ == '__main__':
     word_emb = load_word_emb('data/char_embedding')
     model = SQLNet(word_emb, N_word=n_word, gpu=gpu)
 
-    model_path = 'saved_model/best_model'
+    model_path = 'saved_model/test_model'
     print("Loading from %s" % model_path)
     model.load_state_dict(torch.load(model_path))
     print("Loaded model from %s" % model_path)
 
-    # dev_acc = epoch_acc(model, batch_size, dev_sql, dev_schema)
-    # print ('Dev Logic Form Accuracy: %.3f' % (dev_acc[1]))
+    dev_acc = epoch_acc(model, batch_size, dev_sql, dev_schema)
+    print ('Dev Logic Form Accuracy: %.3f' % (dev_acc[1]))
 
-    print("Start to predict test set")
-    predict_test(model, batch_size, dev_sql, dev_schema, args.output_dir)
-    print("Output path of prediction result is %s" % args.output_dir)
+    # print("Start to predict test set")
+    # predict_test(model, batch_size, dev_sql, dev_schema, args.output_dir)
+    # print("Output path of prediction result is %s" % args.output_dir)
