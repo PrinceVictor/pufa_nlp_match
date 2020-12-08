@@ -3,6 +3,7 @@ from sqlnet.utils import *
 from sqlnet.model.sqlbert import SQLBert
 from pytorch_pretrained_bert import BertTokenizer, BertModel, BertAdam
 import argparse
+from sqlnet.model.sqlnet import SQLNet
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -30,10 +31,13 @@ if __name__ == '__main__':
     restore_model_path = args.restore_model_path
 
     # load dataset
-    train_sql, train_table, train_db, dev_sql, dev_table, dev_db = load_dataset()
-    tokenizer = BertTokenizer.from_pretrained(bert_model_dir)
+    train_sql, train_schema, dev_sql, dev_schema = load_dataset()
+    tokenizer = BertTokenizer.from_pretrained(bert_model_dir, do_lower_case=True)
     # tokenizer = BertTokenizer.from_pretrained(bert_model_dir, do_lower_case=True)
     model = SQLBert.from_pretrained(bert_model_dir)
+    # n_word = 300
+    # word_emb = load_word_emb('data/char_embedding')
+    # model = SQLNet(word_emb, N_word=n_word, gpu=gpu)
 
     optimizer = BertAdam(model.parameters(), lr=lr, schedule='warmup_cosine',
                          warmup=1.0 / epoch, t_total=epoch * (len(train_sql) // batch_size + 1))
@@ -49,9 +53,10 @@ if __name__ == '__main__':
     for i in range(args.epoch):
         print('Epoch %d' % (i + 1))
         # train on the train dataset
-        train_loss = epoch_train(model, optimizer, batch_size, train_sql, train_table, tokenizer=tokenizer)
+        # train_loss = epoch_train(model, optimizer, batch_size, train_sql, train_schema, tokenizer=tokenizer)
+        train_loss = epoch_train(model, optimizer, batch_size, train_sql, train_schema, tokenizer=tokenizer)
         # evaluate on the dev dataset
-        dev_acc = epoch_acc(model, batch_size, dev_sql, dev_table, dev_db, tokenizer=tokenizer)
+        dev_acc = epoch_acc(model, batch_size, dev_sql, dev_schema, tokenizer=tokenizer)
 
         # accuracy of each sub-task
         print(
